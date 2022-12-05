@@ -1,32 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import List from './components/List'
+import './App.module.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [inputVal, setInputVal] = useState([]);
+  const [newTodo, setNewTodo] = useState();
+  
+  const inputChange = (e) => {
+    setNewTodo(e.target.value);
+  }
+
+  const btnSubmit = (e) => {
+    e.preventDefault();
+    setInputVal([...inputVal, newTodo]);
+    setInputVal('');
+  }
+
+  useEffect(() => {
+    console.log('aaaaaaaaaaa');
+  });
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>TODO LIST</h1>
+      <form action="">
+        <input type="text" value={newTodo} onChange={inputChange}/>
+        <button type="submit" onClick={btnSubmit}>제출</button>
+      </form>
+      <List item={inputVal}></List>
     </div>
   )
 }
