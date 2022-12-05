@@ -1,35 +1,37 @@
-import { useState, useEffect } from 'react'
-import List from './components/List'
-import './App.module.css'
+import { useState, useEffect } from "react";
+import List from "./components/List";
+import "./App.module.css";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  const [inputVal, setInputVal] = useState([]);
-  const [newTodo, setNewTodo] = useState();
-  
-  const inputChange = (e) => {
-    setNewTodo(e.target.value);
-  }
+  const [input, setInput] = useState();
+  const [todos, setTodos] = useState([]);
 
-  const btnSubmit = (e) => {
+  const onInputChange = (e) => {
+    setInput(e.target.value);
+  };
+  const onFormSubmit = (e) => {
     e.preventDefault();
-    setInputVal([...inputVal, newTodo]);
-    setInputVal('');
-  }
-
-  useEffect(() => {
-    console.log('aaaaaaaaaaa');
-  });
-
+    setTodos([
+      ...todos,
+      {
+        id: uuidv4(),
+        title: input,
+        completed: false,
+      },
+    ]);
+    setInput("");
+  };
   return (
     <div className="App">
       <h1>TODO LIST</h1>
-      <form action="">
-        <input type="text" value={newTodo} onChange={inputChange}/>
-        <button type="submit" onClick={btnSubmit}>제출</button>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" value={input || ""} onChange={onInputChange} />
+        <button type="submit">제출</button>
       </form>
-      <List item={inputVal}></List>
+      {todos && <List todos={todos} setTodos={setTodos}></List>}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
