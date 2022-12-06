@@ -1,6 +1,17 @@
 {
+  "name": "node-api",
+  "version": "1.0.0",
+  "main": "index.js",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "morgan": "^1.10.0"
-  }
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

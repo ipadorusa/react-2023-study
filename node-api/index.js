@@ -1,15 +1,21 @@
-const express = require('express')
-const morgan = require('morgan')
-const app = express()
-const port = 3000
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors')
+const app = express();
 
-function logger(req, res, next) {
-  console.log("'i'm logger");
-  next();
-}
 
-app.use(logger);
+const users = [  
+  {id:1, title: 'alice', completed: false},
+  {id:2, title: 'bek', completed: false},
+  {id:3, title: 'chris', completed: false},
+];
+
+app.use(cors());
 app.use(morgan('dev'));
+
+app.get('/users', (req, res) => {
+  res.json(users);
+})
 
 app.listen(3000, () => {
   console.log(`server is running`)
