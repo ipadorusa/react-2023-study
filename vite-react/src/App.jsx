@@ -2,31 +2,10 @@ import { useState, useEffect } from "react";
 
 import "./App.css";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
+
 import List from "./components/List";
+import useFetch from './components/useFetch'
 
-const useFetch = (callback, url) => {
-  const [loading, setLoading] = useState();
-
-  const heavyWork = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(url);
-      const initData = response.data;
-      callback(initData);
-      setLoading(false);
-    } catch (e) {
-      setLoading(true);
-      console.log(`${e}`);
-    }
-  };
-
-  useEffect(() => {
-    heavyWork();
-  }, []);
-
-  return loading;
-};
 
 function App() {
   const [inputValue, setInputValue] = useState("");

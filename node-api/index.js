@@ -8,6 +8,8 @@ const users = [
   {id:1, title: 'alice', completed: false},
   {id:2, title: 'bek', completed: false},
   {id:3, title: 'chris', completed: false},
+  {id:4, title: 'holy', completed: false},
+  {id:5, title: 'moly', completed: false},
 ];
 
 app.use(cors());
@@ -20,3 +22,4 @@ app.get('/users', (req, res) => {
 app.listen(3000, () => {
   console.log(`server is running`)
 })
+
