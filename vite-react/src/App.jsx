@@ -3,7 +3,7 @@ import "./App.css";
 import { v4 as uuidv4 } from "uuid";
 
 import List from "./components/List";
-import useFetch from './components/useFetch'
+import useFetch from "./components/useFetch";
 import Header from "./components/Header";
 
 function App() {
@@ -17,9 +17,8 @@ function App() {
     setInputValue(e.target.value);
   };
   const handleInputEnter = (e) => {
-    if (e.keycode === "68") console.log("enter");
+    if (e.keycode === "68") onFormSubmit();
   };
-
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +28,7 @@ function App() {
         {
           id: uuidv4(),
           title: inputValue,
-          completed: false,
+          status: "todo",
         },
       ];
     });
@@ -37,21 +36,20 @@ function App() {
   };
 
   const changeTodosStatus = (id) => {
-    const updateTodos = list.map(todo => {
-      console.log('b', todo.id, id)
-      if(todo.id === id) {
-        if(todo.completed === 'false') todo.completed = 'true'
-        else todo.completed = 'false'
+    const updateTodos = list.map((todo) => {
+      if (todo.id === id) {
+        console.log(todo.status);
+        if (todo.status === "done") todo.status = "todo";
+        else todo.status = "done";
       }
       return todo;
-    })
-    console.log(updateTodos)
-  }
+    });
+    setList(updateTodos);
+  };
 
   useEffect(() => {
-    console.log('render')
-  }, [list])
-
+    console.log("render");
+  }, [list]);
 
   return (
     <div className="App">
@@ -65,7 +63,11 @@ function App() {
         />
         <button type="submit">제출</button>
       </form>
-      <List todos={list} loading={loading} changeTodosStatus={changeTodosStatus}></List>
+      <List
+        todos={list}
+        loading={loading}
+        changeTodosStatus={changeTodosStatus}
+      ></List>
     </div>
   );
 }
